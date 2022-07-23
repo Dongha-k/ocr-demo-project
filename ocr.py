@@ -42,10 +42,12 @@ def resize20(image):
     
 
     bg_img[(10 - h // 2) : (10 + h // 2), (10 - w // 2) : (10 + w // 2)] = gray_resize
-
+    
     # plt.imshow(cv2.cvtColor(gray_resize, cv2.COLOR_GRAY2RGB))
     # plt.show()
-
+    M = cv2.getRotationMatrix2D((10, 10), 0, 0.8)
+    bg_img = cv2.warpAffine(bg_img, M, (20, 20))
+    print(bg_img)
     cv2.imshow('Image', bg_img)
     cv2.waitKey(0)
 
@@ -65,7 +67,7 @@ train, train_labels = load_train_data(FILE_NAME)
 
 
 
-image = cv2.imread('test.jpg')
+image = cv2.imread('test2.jpg')
 image_gray = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
 ret, thresh = cv2.threshold(image_gray, 127, 255, 0)
 contours = cv2.findContours(thresh, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)[0]
